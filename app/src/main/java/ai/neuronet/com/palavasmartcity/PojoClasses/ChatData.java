@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import ai.neuronet.com.neuronetai.Home.ChatType;
-
 /**
  * Created by ${Shailendra} on 10-02-2018.
  */

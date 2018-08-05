@@ -5,7 +5,7 @@ import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 
-import ai.neuronet.com.neuronetai.R;
+import ai.neuronet.com.palavasmartcity.R;
 
 /**
  * Created by ${Shailendra} on 18-02-2018.
