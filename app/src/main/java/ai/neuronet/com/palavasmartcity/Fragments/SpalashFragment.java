@@ -51,7 +51,7 @@ public class SpalashFragment extends Fragment {
                             return;
                         }
                         FragmentTransaction transaction = fragmentManager.beginTransaction();
-                        transaction.replace(R.id.contentPanel, homeFragment, homeFragment.getClass().getCanonicalName()).commit();
+                        transaction.replace(R.id.contentPanel, homeFragment, homeFragment.getClass().getCanonicalName()).addToBackStack(homeFragment.getClass().getCanonicalName()).commit();
                     }
                 }
             }

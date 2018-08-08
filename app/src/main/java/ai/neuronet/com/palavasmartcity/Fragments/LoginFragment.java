@@ -78,7 +78,7 @@ public class LoginFragment extends android.support.v4.app.Fragment implements IG
                         Bundle bundle =new Bundle();
                         bundle.putString("ID", (String) loginToSmartHubButton.getTag());
                         loginFragment.setArguments(bundle);
-                        transaction.replace(R.id.contentPanel, loginFragment, loginFragment.getClass().getCanonicalName()).commit();
+                        transaction.replace(R.id.contentPanel, loginFragment, loginFragment.getClass().getCanonicalName()).addToBackStack(loginFragment.getClass().getCanonicalName()).commit();
                     }
                 }
             }

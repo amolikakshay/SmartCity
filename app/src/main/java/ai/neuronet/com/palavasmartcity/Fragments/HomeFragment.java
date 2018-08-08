@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import ai.neuronet.com.palavasmartcity.Fragments.faceLogin.FaceLoginFragment;
 import ai.neuronet.com.palavasmartcity.R;
 
 public class HomeFragment extends Fragment {
@@ -34,7 +35,6 @@ public class HomeFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 startLoginProcess();
             }
         });
@@ -48,7 +48,8 @@ public class HomeFragment extends Fragment {
             return;
         }
         if (!getActivity().isFinishing()) {
-            LoginFragment loginFragment = new LoginFragment();
+//            LoginFragment loginFragment = new LoginFragment();
+            FaceLoginFragment loginFragment = new FaceLoginFragment();
 
             FragmentManager fragmentManager = getFragmentManager();
             if (fragmentManager != null) {
@@ -56,7 +57,7 @@ public class HomeFragment extends Fragment {
                     return;
                 }
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.contentPanel, loginFragment, loginFragment.getClass().getCanonicalName()).commit();
+                transaction.replace(R.id.contentPanel, loginFragment, loginFragment.getClass().getCanonicalName()).addToBackStack(loginFragment.getClass().getCanonicalName()).commit();
             }
         }
     }
