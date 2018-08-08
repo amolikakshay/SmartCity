@@ -1,11 +1,9 @@
 package ai.neuronet.com.palavasmartcity.Activities;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.Rect;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
         SpalashFragment splashFragment = new SpalashFragment();
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.contentPanel,splashFragment);
+        transaction.replace(R.id.contentPanel, splashFragment);
+        transaction.addToBackStack(splashFragment.getClass().getCanonicalName());
         //  transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.commit();
 
