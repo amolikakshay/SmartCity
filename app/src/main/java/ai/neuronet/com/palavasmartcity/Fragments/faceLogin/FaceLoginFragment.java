@@ -43,7 +43,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import ai.neuronet.com.palavasmartcity.Fragments.LoginUsingEmailOrOtp;
+import ai.neuronet.com.palavasmartcity.Fragments.LoginWithMPinFragment;
 import ai.neuronet.com.palavasmartcity.PojoClasses.faceRecognition.FaceRecognition;
+import ai.neuronet.com.palavasmartcity.PojoClasses.faceRecognition.User;
 import ai.neuronet.com.palavasmartcity.R;
 import id.zelory.compressor.Compressor;
 
@@ -104,12 +106,12 @@ public class FaceLoginFragment extends Fragment {
 //                new Handler().postDelayed(new Runnable() {
 //                    @Override
 //                    public void run() {
-                        captureCount++;
-                        if (captureCount < 5) {
-                            cameraView.capturePicture();
-                        }
-                        SaveImageToMemory imageToMemory = new SaveImageToMemory(jpeg, "image" + captureCount);
-                        imageToMemory.execute();
+                captureCount++;
+                if (captureCount < 5) {
+                    cameraView.capturePicture();
+                }
+                SaveImageToMemory imageToMemory = new SaveImageToMemory(jpeg, "image" + captureCount);
+                imageToMemory.execute();
 //                    }
 //                }, 500);
                 super.onPictureTaken(jpeg);
@@ -151,27 +153,28 @@ public class FaceLoginFragment extends Fragment {
     private void compressImage(byte[] data, String imageName) {
         File file = getOutputMediaFile("FaceImage", imageName);/* = new File( Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
                             "frontPicture.jpg");*/
-        Log.d("FileName : ", file.getAbsolutePath());
-        OutputStream os = null;
-        try {
+        if (file != null) {
+            Log.d("FileName : ", file.getAbsolutePath());
+            OutputStream os = null;
+            try {
 
-            os = new FileOutputStream(file);
-            os.write(data);
-            os.close();
-            Log.e("Saving : ", "doInBackground: " + file.length() / 1024);
+                os = new FileOutputStream(file);
+                os.write(data);
+                os.close();
+                Log.e("Saving : ", "doInBackground: " + file.length() / 1024);
 //            EmbadImages embadImages = new EmbadImages(imageName);
 //            embadImages.execute();
-        } catch (IOException e) {
-            Log.w("Saving failed : ", "Cannot write to " + file, e);
-        } finally {
-            if (os != null) {
-                try {
-                    os.close();
-                } catch (IOException e) {
-                    // Ignore
+            } catch (IOException e) {
+                Log.w("Saving failed : ", "Cannot write to " + file, e);
+            } finally {
+                if (os != null) {
+                    try {
+                        os.close();
+                    } catch (IOException e) {
+                        // Ignore
+                    }
                 }
             }
-
         }
     }
 
@@ -286,9 +289,50 @@ public class FaceLoginFragment extends Fragment {
                 FaceRecognition faceRecognition = gson.fromJson(s, FaceRecognition.class);
                 faceRecognition.toString();
                 /*Code next lavel*/
+                User[] user = faceRecognition.getUser();
+                User detectedUser = null;
+                for (int i = 0; i < user.length; i++) {
+                    if (Float.parseFloat(user[i].getAvg_score()) > Float.parseFloat(user[i++].getAvg_score())) {
+                        detectedUser = user[i];
+                    }
+                }
+                if (detectedUser != null) {
+                    // Add Correct Id and Email Here
+                    callMPinWebService("d4b23baa-756f-4f2b-9279-e52261cd918c", detectedUser.getEmail());
+                    Log.e("Face", "" + detectedUser.getEmail());
+                } else {
+                    loginViaOTP();
+                }
             } else {
                 loginViaOTP();
+
+                //callMPinWebService("d4b23baa-756f-4f2b-9279-e52261cd918c", "FaceRecognition:testdesireepaco@hotmail.com");
                 Log.e("Face login failed : ", "Could not recognised face");
+            }
+        }
+    }
+
+    private void callMPinWebService(String id, String title) {
+
+        if (getActivity() == null) {
+            return;
+        }
+        if (!getActivity().isFinishing()) {
+            LoginWithMPinFragment loginFragment = new LoginWithMPinFragment();
+
+            FragmentManager fragmentManager = getFragmentManager();
+            if (fragmentManager != null) {
+                if (getActivity() == null || getActivity().isFinishing()) {
+                    return;
+                }
+
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("ID", id);
+                bundle.putString("title", title);
+                loginFragment.setArguments(bundle);
+                transaction.replace(R.id.contentPanel, loginFragment, loginFragment.getClass().getCanonicalName()).addToBackStack(loginFragment.getClass().getCanonicalName()).commit();
             }
         }
     }
