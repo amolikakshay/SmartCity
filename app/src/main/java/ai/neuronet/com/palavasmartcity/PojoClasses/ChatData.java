@@ -152,4 +152,6 @@ public class ChatData {
     public void setIsLogin(boolean _isLogin) {
         this._isLogin = _isLogin;
     }
+
+
 }

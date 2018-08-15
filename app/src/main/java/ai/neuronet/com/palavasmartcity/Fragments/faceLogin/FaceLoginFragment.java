@@ -297,7 +297,6 @@ public class FaceLoginFragment extends Fragment {
                     }
                 }
                 if (detectedUser != null) {
-                    // Add Correct Id and Email Here
                     callMPinWebService("d4b23baa-756f-4f2b-9279-e52261cd918c", detectedUser.getEmail());
                     Log.e("Face", "" + detectedUser.getEmail());
                 } else {

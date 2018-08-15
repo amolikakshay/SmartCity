@@ -15,7 +15,6 @@ import com.ai.web.defnition.Type;
 import com.ai.web.workflow.components.Text;
 
 
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -74,6 +73,7 @@ public class DataCallAsync extends AsyncTask<String, Void, Nbit> {
 
                 HandleChat chat = new HandleChat();
                 jsonresponse = chat.handlechatTextRequest(bit);
+
                 nbit = nbit.GetNbit(jsonresponse);
                 System.out.println("bits resp: " + jsonresponse);
                 iGetDataFromAsync.OnDataDoInBackground();
@@ -176,11 +176,13 @@ public class DataCallAsync extends AsyncTask<String, Void, Nbit> {
         dummyChatData.setChatType("text");
         dummyChatData.setChatTypeEnum(ChatType.getItemType("text"));
         dummyChatData.setLoopRequired("0");
+
         CustomNBitClass customNBitClass = new CustomNBitClass();
         ArrayList<ChatData> chatDataList = new ArrayList<>();
         chatDataList.add(dummyChatData);
         customNBitClass.setChatDataArrayList(chatDataList);
         customNBitClass.setNbit(new Nbit());
+        customNBitClass.setError(true);
         iGetDataFromAsync.onDataReceiveFromAsync(customNBitClass);
     }
 

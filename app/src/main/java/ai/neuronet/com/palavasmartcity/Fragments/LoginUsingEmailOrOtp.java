@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,7 +27,7 @@ public class LoginUsingEmailOrOtp extends Fragment implements IGetDataFromAsync 
     private Button loginUsingEmail;
     private Button loginUsingOtp;
 
-    String id;
+    private String id;
     private ProgressBar progressBar;
     private ViewGroup loginUsingEmailCardView;
     private ViewGroup loginUsingOtpViewGroup;
@@ -52,11 +54,22 @@ public class LoginUsingEmailOrOtp extends Fragment implements IGetDataFromAsync 
         View loginusingEmailConatiner = view.findViewById(R.id.loginusingEmail);
         loginUsingEmailCardView = (ViewGroup) loginusingEmailConatiner;
         loginUsingEmail = (Button) loginUsingEmailCardView.getChildAt(0);
+        loginUsingEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
         View loginUsingOtpContainer = view.findViewById(R.id.loginUsingOtp);
         loginUsingOtpViewGroup = (ViewGroup) loginUsingOtpContainer;
         loginUsingOtp = (Button) loginUsingOtpViewGroup.getChildAt(0);
+        loginUsingOtp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                loginUsingOTP();
+            }
+        });
         progressBar = view.findViewById(R.id.loginProgressbar);
 
         progressBar.setVisibility(View.VISIBLE);
@@ -72,17 +85,17 @@ public class LoginUsingEmailOrOtp extends Fragment implements IGetDataFromAsync 
     public void onDataReceiveFromAsync(CustomNBitClass customNBitClass) {
 
         Log.e("", "");
+
         progressBar.setVisibility(View.GONE);
-        ChatData  chatData =customNBitClass.getChatDataArrayList().get(0);
+        ChatData chatData = customNBitClass.getChatDataArrayList().get(0);
         errorMessageToLoginUsingEmailOrOtp.setText(chatData.getChatMessage());
         loginUsingEmailCardView.setVisibility(View.VISIBLE);
         loginUsingEmail.setText(customNBitClass.getChatDataArrayList().get(1).getChatMessage());
+        loginUsingEmail.setTag(loginUsingEmail.getId(), customNBitClass.getChatDataArrayList().get(1));
 
         loginUsingOtpViewGroup.setVisibility(View.VISIBLE);
         loginUsingOtp.setText(customNBitClass.getChatDataArrayList().get(2).getChatMessage());
-
-
-
+        loginUsingOtp.setTag(loginUsingOtp.getId(), customNBitClass.getChatDataArrayList().get(2));
     }
 
     @Override
@@ -92,6 +105,32 @@ public class LoginUsingEmailOrOtp extends Fragment implements IGetDataFromAsync 
 
     @Override
     public void isLogedIn(boolean isLogedIn) {
+
+    }
+
+    private void loginUsingOTP() {
+
+        if (getActivity() == null) {
+            return;
+        }
+        if (!getActivity().isFinishing()) {
+            OtpFragment loginFragment = new OtpFragment();
+
+            FragmentManager fragmentManager = getFragmentManager();
+            if (fragmentManager != null) {
+                if (getActivity() == null || getActivity().isFinishing()) {
+                    return;
+                }
+
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                ChatData chatData = (ChatData) loginUsingOtp.getTag(loginUsingOtp.getId());
+                Bundle bundle = new Bundle();
+                bundle.putString("ID", chatData.getChatId());
+                bundle.putString("title", chatData.getChatContainerText());
+                loginFragment.setArguments(bundle);
+                transaction.replace(R.id.contentPanel, loginFragment, loginFragment.getClass().getCanonicalName()).addToBackStack(loginFragment.getClass().getCanonicalName()).commit();
+            }
+        }
 
     }
 }

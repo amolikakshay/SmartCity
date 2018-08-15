@@ -50,7 +50,6 @@ public class LoginWithMPinFragment extends android.support.v4.app.Fragment imple
 
     private void initView(View view) {
 
-
         View loginusingEmailConatiner = view.findViewById(R.id.btnSubmit);
         btnSubmitViewGroup = (ViewGroup) loginusingEmailConatiner;
         btnSubmit = (Button) btnSubmitViewGroup.getChildAt(0);
