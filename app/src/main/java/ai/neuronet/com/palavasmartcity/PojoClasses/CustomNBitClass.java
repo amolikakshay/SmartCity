@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class CustomNBitClass {
 
     Nbit nbit;
+    private boolean isError;
 
     public Nbit getNbit() {
         return nbit;
@@ -29,4 +30,12 @@ public class CustomNBitClass {
     }
 
     ArrayList<ChatData> chatDataArrayList;
+
+    public boolean isError() {
+        return isError;
+    }
+
+    public void setError(boolean error) {
+        isError = error;
+    }
 }

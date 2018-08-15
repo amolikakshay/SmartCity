@@ -12,6 +12,10 @@
     <string name="Welcome_Message">WelCome to Palava Smart Hub</string>
     <string name="home_Message_subtitle">I can help you with </string>
     <string name="startConversion">Start Conversion </string>
-
+    <string name="mpin">MPIN</string>
+    <string name="hintMpin">Last Four Digits of  Mobile Number</string>
+    <string name="registeredMobileNumber">Your Registered Mobile Number</string>
+    <string name="mobile">Mobile</string>
+    <string name="sendOTP">send OTP</string>
 
 </resources>
