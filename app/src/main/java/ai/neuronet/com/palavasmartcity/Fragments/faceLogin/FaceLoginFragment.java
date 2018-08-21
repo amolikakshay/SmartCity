@@ -67,7 +67,8 @@ public class FaceLoginFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        cameraView.start();
+       // cameraView.start();
+        loginViaOTP();
     }
 
     @Override
