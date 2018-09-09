@@ -1,12 +1,12 @@
 package ai.neuronet.com.palavasmartcity.callback;
-import ai.neuronet.com.palavasmartcity.PojoClasses.CustomNBitClass;
+import com.ai.web.client.ClientDialogs;
 
 /**
  * Created by ${Shailendra} on 10-02-2018.
  */
 
 public interface IGetDataFromAsync {
-    void onDataReceiveFromAsync(CustomNBitClass customNBitClass);
+    void onDataReceiveFromAsync(ClientDialogs customNBitClass);
     void OnDataDoInBackground();
     void isLogedIn(boolean isLogedIn);
 }

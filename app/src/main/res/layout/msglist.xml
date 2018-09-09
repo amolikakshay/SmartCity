@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/letANDRightTextId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:orientation="horizontal">
+
+        <ai.neuronet.com.palavasmartcity.font.NeuroNetTextView
+            android:id="@+id/leftText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:layout_marginRight="@dimen/margin_10"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_weight="0.6"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:paddingRight="@dimen/margin_5"
+            android:textSize="@dimen/dimen_16sp" />
+
+
+        <TextView
+            android:id="@+id/rightText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_marginRight="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_weight="0.4"
+            android:background="@drawable/right_background"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:textSize="@dimen/dimen_14sp" />
+
+    </LinearLayout>
+
+    <ai.neuronet.com.palavasmartcity.font.NeuroNetTextView
+        android:id="@+id/tapToEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/letANDRightTextId"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_20"
+        android:text="@string/tap_to_edit"
+        android:textSize="@dimen/dimen_16sp"
+        android:visibility="visible"
+        tools:ignore="SmallSp" />
+
+</RelativeLayout>

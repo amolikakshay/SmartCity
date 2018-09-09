@@ -1,0 +1,41 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/visitorName"
+            layout="@layout/layout_textview_autocompletetextview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/visitorMobileNumber"
+            layout="@layout/layout_textview_autocompletetextview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/visitorType"
+            layout="@layout/layout_textview_with_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <include
+            android:id="@+id/residentMobile"
+            layout="@layout/layout_textview_autocompletetextview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/submitVisitor_PassButton"
+            layout="@layout/roundedbutton" />
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

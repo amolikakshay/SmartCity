@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/Name"
+            layout="@layout/layout_textview_autocompletetextview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/mobileNo"
+            layout="@layout/layout_textview_autocompletetextview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/visitorType"
+            layout="@layout/layout_textview_with_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <include
+            android:id="@+id/purpose"
+            layout="@layout/layout_textview_with_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/validity"
+            layout="@layout/layout_textview_with_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <include
+            android:id="@+id/visit_Time_Picker"
+            layout="@layout/layout_textview_with_datepicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/sendComplaintButton"
+            layout="@layout/roundedbutton">
+
+        </include>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

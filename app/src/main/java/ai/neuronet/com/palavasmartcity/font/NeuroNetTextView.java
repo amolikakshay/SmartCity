@@ -4,10 +4,11 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
 import ai.neuronet.com.palavasmartcity.R;
 
-public class NeuroNetTextView  extends AppCompatTextView
+public class NeuroNetTextView  extends android.support.v7.widget.AppCompatTextView
 {
 
 
