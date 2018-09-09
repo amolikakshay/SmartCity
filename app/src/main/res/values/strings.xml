@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">PalavaSmartCity</string>
+    <string name="app_name_type">Mobile/Android</string>
+
 
     <string name="speech_prompt">Say something&#8230;</string>
     <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
@@ -12,8 +14,8 @@
     <string name="Welcome_Message">WelCome to Palava Smart Hub</string>
     <string name="home_Message_subtitle">I can help you with </string>
     <string name="startConversion">Start Conversion </string>
-    <string name="mpin">MPIN</string>
-    <string name="hintMpin">Last Four Digits of  Mobile Number</string>
+    <string name="otp">OTP</string>
+    <string name="hintOtp">Enter Your OTP</string>
     <string name="registeredMobileNumber">Your Registered Mobile Number</string>
     <string name="mobile">Mobile</string>
     <string name="sendOTP">send OTP</string>
@@ -21,4 +23,9 @@
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="emailId">Email Id</string>
+    <string name="Update">Update</string>
+
+    <string name="searchHint">Ex- no electricity / lift not working</string>
+
+
 </resources>

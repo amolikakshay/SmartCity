@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:elevation="@dimen/dimen_20"
+    app:cardCornerRadius="@dimen/dimen_20">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <include
+            layout="@layout/layout_textview_edittext_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/reportType"
+            layout="@layout/layout_textview_with_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/location"
+            layout="@layout/layout_textview_with_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <include
+            android:id="@+id/subArea"
+            layout="@layout/layout_textview_with_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/specifically"
+            layout="@layout/layout_textview_with_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <include
+            android:id="@+id/complaint_picker"
+            layout="@layout/layout_textview_with_datepicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/sendComplaintButton"
+            layout="@layout/roundedbutton">
+
+        </include>
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

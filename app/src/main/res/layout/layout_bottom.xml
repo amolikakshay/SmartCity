@@ -1,20 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_alignParentBottom="true"
-    android:background="@color/bg_bottomLayout"
-    app:cardCornerRadius="@dimen/dimen_20"
+    android:background="@color/colorPrimaryDark"
     android:orientation="vertical">
 
-    <AutoCompleteTextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_50"
-         android:hint="@string/app_name"
-        android:textColorHint="@color/hintColor"
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        style="@style/AVLoadingIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.1"
+        app:indicatorColor="@color/bg_color"
+        app:indicatorName="BallPulseIndicator" />
 
-        android:textColor="@color/bg_gradient_start"
-        android:background="@color/bg_bottomLayout" />
-</android.support.v7.widget.CardView>
+    <RelativeLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.9"
+        android:background="@color/bg_bottomLayout"
+        android:gravity="center">
+
+        <com.chauthai.swipereveallayout.SwipeRevealLayout
+            android:id="@+id/swipeRevealLyout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:dragEdge="right"
+            app:mode="same_level">
+
+            <!-- Your secondary layout here -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/dimen_05"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/dimen_05"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="@dimen/margin_5"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_toStartOf="@+id/sendChat"
+                        android:background="@drawable/right_background"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:paddingLeft="@dimen/margin_10"
+                        android:paddingRight="@dimen/margin_10"
+                        android:textColorHint="@color/hintColor"
+                        android:textCursorDrawable="@color/bg_color">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/editText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="start|center"
+                            android:background="@android:color/transparent"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:gravity="start|center"
+                            android:hint="@string/searchHint"
+                            android:padding="@dimen/margin_5"
+                            android:textColorHint="@color/hintColor" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/sendChat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="@dimen/margin_5"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_send" />
+                </RelativeLayout>
+            </FrameLayout>
+
+            <!-- Your main layout here -->
+            <FrameLayout
+                android:id="@+id/main"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_50">
+
+                <com.github.zagum.speechrecognitionview.RecognitionProgressView
+                    android:id="@+id/recognition_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:visibility="gone"
+                    tools:ignore="RtlSymmetry" />
+
+                <ImageView
+                    android:id="@+id/listen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin_10"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/sound"
+                    tools:ignore="RtlSymmetry" />
+
+            </FrameLayout>
+
+        </com.chauthai.swipereveallayout.SwipeRevealLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>
 
