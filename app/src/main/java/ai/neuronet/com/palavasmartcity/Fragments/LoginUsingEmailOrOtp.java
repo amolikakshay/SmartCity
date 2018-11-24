@@ -1,5 +1,5 @@
-//package ai.neuronet.com.palavasmartcity.Fragments;
-//
+package ai.neuronet.com.palavasmartcity.Fragments;
+
 //import android.os.Bundle;
 //import android.support.annotation.NonNull;
 //import android.support.annotation.Nullable;

@@ -13,7 +13,7 @@
             android:id="@+id/textView_CustomAutoCompleteTextvIew"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.20"
+            android:layout_weight="0.28"
             android:maxLines="1"
             android:text="@string/app_name"
             android:textColor="@color/colorAccent"
@@ -24,11 +24,11 @@
             android:id="@+id/customAutoCompleteTextView_WithButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.60"
+            android:layout_weight="0.52"
             android:background="@color/white"
             android:inputType="phone"
             android:maxLines="1"
-            android:textColor="@color/bg_gradient_start"
+            android:textColor="@color/cardview_dark_background"
             android:textSize="@dimen/dimen_18sp" />
 
         <Button
@@ -40,9 +40,5 @@
             android:text="@string/Update"
             android:textColor="@color/bg_color"
             android:textSize="@dimen/dimen_18sp" />
-
-
     </LinearLayout>
-
-
 </android.support.constraint.ConstraintLayout>

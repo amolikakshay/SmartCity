@@ -62,7 +62,9 @@
                         android:background="@color/white"
                         android:inputType="phone"
                         android:maxLines="1"
-                        android:textColor="@color/bg_gradient_start"
+                        android:maxLength="10"
+                        android:hint="@string/enter_mobile_no"
+                        android:textColor="@color/cardview_dark_background"
                         android:textSize="@dimen/dimen_18sp" />
                 </LinearLayout>
 
