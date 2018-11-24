@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ai.neuronet.com.palavasmartcity.R;
+import ai.neuronet.com.palavasmartcity.utils.SharePreferenceManager;
 
 public class SpalashFragment extends Fragment {
 
@@ -39,19 +40,38 @@ public class SpalashFragment extends Fragment {
 
             public void onFinish() {
 
+
                 if (getActivity() == null) {
                     return;
                 }
-                if (!getActivity().isFinishing()) {
-                    HomeFragment homeFragment = new HomeFragment();
 
-                    FragmentManager fragmentManager = getFragmentManager();
-                    if (fragmentManager != null) {
-                        if (getActivity() == null || getActivity().isFinishing()) {
-                            return;
+                if(SharePreferenceManager.getInstance().isLogin(getContext()))
+                {
+                    if (!getActivity().isFinishing()) {
+                        MainFragment mainFragment = new MainFragment();
+
+                        FragmentManager fragmentManager = getFragmentManager();
+                        if (fragmentManager != null) {
+                            if (getActivity() == null || getActivity().isFinishing()) {
+                                return;
+                            }
+                            FragmentTransaction transaction = fragmentManager.beginTransaction();
+                            transaction.replace(R.id.contentPanel, mainFragment, mainFragment.getClass().getCanonicalName()).addToBackStack(mainFragment.getClass().getCanonicalName()).commitAllowingStateLoss();
                         }
-                        FragmentTransaction transaction = fragmentManager.beginTransaction();
-                        transaction.replace(R.id.contentPanel, homeFragment, homeFragment.getClass().getCanonicalName()).addToBackStack(homeFragment.getClass().getCanonicalName()).commit();
+                    }
+                }
+                else {
+                    if (!getActivity().isFinishing()) {
+                        OtpFragment otpFragment = new OtpFragment();
+
+                        FragmentManager fragmentManager = getFragmentManager();
+                        if (fragmentManager != null) {
+                            if (getActivity() == null || getActivity().isFinishing()) {
+                                return;
+                            }
+                            FragmentTransaction transaction = fragmentManager.beginTransaction();
+                            transaction.replace(R.id.contentPanel, otpFragment, otpFragment.getClass().getCanonicalName()).addToBackStack(otpFragment.getClass().getCanonicalName()).commitAllowingStateLoss();
+                        }
                     }
                 }
             }

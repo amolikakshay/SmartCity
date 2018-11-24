@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#AF9876</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#fffff0</color>
     <color name="colorAccent">#FF4081</color>
     <color name="bg_color">#2095F3</color>
 
@@ -14,7 +14,7 @@
     <color name="previousResponseColor">#fff</color>
 
     <color name="white">#ffffff</color>
-    <color name="bg_gradient_start">#31244e</color>
+    <color name="bg_gradient_start">#fffff0</color>
     <color name="hintColor">#20000000</color>
 
     <color name="color1">#3164d7</color>

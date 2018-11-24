@@ -32,11 +32,8 @@ public class MainActivity extends AppCompatActivity {
         SpalashFragment splashFragment = new SpalashFragment();
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.contentPanel, splashFragment);
-        transaction.addToBackStack(splashFragment.getClass().getCanonicalName());
-        //  transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.commit();
-
+        transaction.replace(R.id.contentPanel, splashFragment,getString(R.string.app_name));
+         transaction.commit();
     }
 
 
@@ -44,7 +41,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             View v = getCurrentFocus();
-            if (v instanceof AutoCompleteTextView || v instanceof AppCompatEditText) {
+            if(v==null)
+            {
+                return super.dispatchTouchEvent(event);
+            }
+            if (v instanceof AutoCompleteTextView || v instanceof AppCompatEditText ) {
                 Rect outRect = new Rect();
                 v.getGlobalVisibleRect(outRect);
                 if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
@@ -52,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     if (v instanceof AutoCompleteTextView) {
-                        v.setVisibility(View.GONE);
+                        //v.setVisibility(View.GONE);
                     } else if (v instanceof Spinner) {
-                        v.setVisibility(View.GONE);
+                        //v.setVisibility(View.GONE);
                     }
                 }
             }

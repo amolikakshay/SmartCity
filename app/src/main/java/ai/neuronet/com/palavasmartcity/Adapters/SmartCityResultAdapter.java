@@ -15,20 +15,25 @@ import java.util.ArrayList;
 import ai.neuronet.com.palavasmartcity.PojoClasses.CardType;
 import ai.neuronet.com.palavasmartcity.PojoClasses.ChatType;
 import ai.neuronet.com.palavasmartcity.R;
+import ai.neuronet.com.palavasmartcity.ViewHolders.BlankViewHolder;
 import ai.neuronet.com.palavasmartcity.ViewHolders.CardHolders.SingleTextCardViewHolder;
+import ai.neuronet.com.palavasmartcity.ViewHolders.CardHolders.TextDropdownCardViewHolder;
 import ai.neuronet.com.palavasmartcity.ViewHolders.ImageViewHolder;
 import ai.neuronet.com.palavasmartcity.ViewHolders.TextViewHolder;
+import ai.neuronet.com.palavasmartcity.callback.UpdateListener;
 
 public class SmartCityResultAdapter extends RecyclerView.Adapter {
 
 
     private Context _context;
     private ArrayList<Dialog> _dataLists;
+    private UpdateListener _updateListener;
 
-    public SmartCityResultAdapter(Context context, ArrayList<Dialog> dialogs) {
+    public SmartCityResultAdapter(Context context, ArrayList<Dialog> dialogs, UpdateListener updateListener) {
 
         _context = context;
         _dataLists = dialogs;
+        _updateListener = updateListener;
     }
 
 
@@ -38,6 +43,7 @@ public class SmartCityResultAdapter extends RecyclerView.Adapter {
         View view;
         switch (viewType) {
             case 0:
+            case 9:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_textview, parent, false);
                 return new TextViewHolder(view);
             case 2:
@@ -47,11 +53,23 @@ public class SmartCityResultAdapter extends RecyclerView.Adapter {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_otp, parent, false);
                 return new SingleTextCardViewHolder(view, CardType.SINGLE_TEXT_BUTTON);
 
+            case 5:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_blank, parent, false);
+                return new BlankViewHolder(view);
+            case 7:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.complaint_layout, parent, false);
+                return new TextDropdownCardViewHolder(view, CardType.THREE_TEXT_ONE_DROPDOWN_Button,_updateListener);
+
+            case 8:
             case 100:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_textview, parent, false);
                 return new TextViewHolder(view);
+
+            default:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_blank, parent, false);
+                return new BlankViewHolder(view);
         }
-        return null;
+
     }
 
     @Override
@@ -63,13 +81,25 @@ public class SmartCityResultAdapter extends RecyclerView.Adapter {
 
             case ITEM_TYPE_TEXT:
             case ITEM_TYPE_VOICE_TEXT:
+            case ITEM_TYPE_VOICE:
                 TextViewHolder textViewHolder = (TextViewHolder) holder;
                 textViewHolder.bindData(dialog.getDialog());
+                break;
+
+            case ITEM_TYPE_BUTTON:
+                SingleTextCardViewHolder buttonCardViewHolder= (SingleTextCardViewHolder) holder;
+                buttonCardViewHolder.bindData(dialog);
                 break;
             case ITEM_TYPE_CARD:
                 SingleTextCardViewHolder singleTextCardViewHolder = (SingleTextCardViewHolder) holder;
                 singleTextCardViewHolder.bindData(dialog);
                 break;
+
+            case ITEM_TYPE_FORM:
+                TextDropdownCardViewHolder textDropdownCardViewHolder = (TextDropdownCardViewHolder) holder;
+                textDropdownCardViewHolder.bindData(dialog);
+                break;
+
         }
     }
 
@@ -93,6 +123,10 @@ public class SmartCityResultAdapter extends RecyclerView.Adapter {
                 return ChatType.ITEM_TYPE_INPUT.getType();
             case ITEM_TYPE_VOICE:
                 return ChatType.ITEM_TYPE_VOICE.getType();
+            case ITEM_TYPE_VOICE_TEXT:
+                return ChatType.ITEM_TYPE_VOICE_TEXT.getType();
+            case ITEM_TYPE_FORM:
+                return ChatType.ITEM_TYPE_FORM.getType();
             default:
                 return ChatType.ITEM_TYPE_UNKNOWN.getType();
         }

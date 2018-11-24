@@ -45,7 +45,8 @@
                     android:background="@color/white"
                     android:hint="@string/hintOtp"
                     android:maxLines="1"
-                    android:textColor="@color/bg_gradient_start"
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/cardview_dark_background"
                     android:textSize="@dimen/dimen_18sp" />
             </LinearLayout>
 

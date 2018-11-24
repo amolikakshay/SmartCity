@@ -65,15 +65,15 @@ public class DataCallAsync extends AsyncTask<Void, Void, ClientDialogs> {
     protected void onPostExecute(ClientDialogs message) {
 
         if (message == null) {
-            showErrorMessage(message);
+            showErrorMessage();
         } else {
             iGetDataFromAsync.onDataReceiveFromAsync(message);
         }
     }
 
-    private void showErrorMessage(ClientDialogs clientDialogs) {
+    private void showErrorMessage() {
 
-        iGetDataFromAsync.onDataReceiveFromAsync(clientDialogs);
+        iGetDataFromAsync.onDataReceiveFromAsync(null);
     }
 
     public String getJsonresponse() {

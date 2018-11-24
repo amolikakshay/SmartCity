@@ -2,7 +2,7 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     android:elevation="@dimen/dimen_20"
     app:cardCornerRadius="@dimen/dimen_20">
@@ -30,6 +30,7 @@
             android:id="@+id/location"
             layout="@layout/layout_textview_with_textview"
             android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dimen_05"
             android:layout_height="wrap_content" />
 
 
@@ -37,12 +38,14 @@
             android:id="@+id/subArea"
             layout="@layout/layout_textview_with_textview"
             android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dimen_05"
             android:layout_height="wrap_content" />
 
         <include
             android:id="@+id/specifically"
             layout="@layout/layout_textview_with_spinner"
             android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dimen_05"
             android:layout_height="wrap_content" />
 
 
@@ -54,8 +57,11 @@
 
         <include
             android:id="@+id/sendComplaintButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:layout_margin="@dimen/margin_20"
             layout="@layout/roundedbutton">
-
         </include>
     </LinearLayout>
 
