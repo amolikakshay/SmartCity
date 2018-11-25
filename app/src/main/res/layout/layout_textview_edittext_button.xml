@@ -20,7 +20,7 @@
             android:textSize="@dimen/dimen_18sp" />
 
 
-        <ai.neuronet.com.palavasmartcity.views.CustomAutoCompleteTextvIew
+        <AutoCompleteTextView
             android:id="@+id/customAutoCompleteTextView_WithButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -4,9 +4,12 @@ import android.content.Context;
 import android.renderscript.Element;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.ai.web.client.Dialog;
 
@@ -16,6 +19,7 @@ import ai.neuronet.com.palavasmartcity.PojoClasses.CardType;
 import ai.neuronet.com.palavasmartcity.PojoClasses.ChatType;
 import ai.neuronet.com.palavasmartcity.R;
 import ai.neuronet.com.palavasmartcity.ViewHolders.BlankViewHolder;
+import ai.neuronet.com.palavasmartcity.ViewHolders.ButtonViewHolder;
 import ai.neuronet.com.palavasmartcity.ViewHolders.CardHolders.SingleTextCardViewHolder;
 import ai.neuronet.com.palavasmartcity.ViewHolders.CardHolders.TextDropdownCardViewHolder;
 import ai.neuronet.com.palavasmartcity.ViewHolders.ImageViewHolder;
@@ -46,11 +50,17 @@ public class SmartCityResultAdapter extends RecyclerView.Adapter {
             case 9:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_textview, parent, false);
                 return new TextViewHolder(view);
+
+            case 1:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_button, parent, false);
+                return new ButtonViewHolder(view);
+
             case 2:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_imageview, parent, false);
                 return new ImageViewHolder(view);
             case 3:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_otp, parent, false);
+
                 return new SingleTextCardViewHolder(view, CardType.SINGLE_TEXT_BUTTON);
 
             case 5:
@@ -87,8 +97,8 @@ public class SmartCityResultAdapter extends RecyclerView.Adapter {
                 break;
 
             case ITEM_TYPE_BUTTON:
-                SingleTextCardViewHolder buttonCardViewHolder= (SingleTextCardViewHolder) holder;
-                buttonCardViewHolder.bindData(dialog);
+                ButtonViewHolder buttonCardViewHolder= (ButtonViewHolder) holder;
+                buttonCardViewHolder.bindData(dialog.dialog,_updateListener);
                 break;
             case ITEM_TYPE_CARD:
                 SingleTextCardViewHolder singleTextCardViewHolder = (SingleTextCardViewHolder) holder;

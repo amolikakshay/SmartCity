@@ -1,10 +1,14 @@
 package ai.neuronet.com.palavasmartcity.Fragments;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -20,8 +24,6 @@ import android.widget.RelativeLayout;
 import com.ai.web.client.ClientDialogs;
 import com.ai.web.client.Dialog;
 import com.ai.web.client.Dialogs;
-import com.ai.web.client.HandleChat;
-import com.ai.web.client.Utill;
 import com.ai.web.defnition.Nbit;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -35,6 +37,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import ai.neuronet.com.palavasmartcity.Activities.MainActivity;
 import ai.neuronet.com.palavasmartcity.Adapters.SmartCityResultAdapter;
 import ai.neuronet.com.palavasmartcity.R;
 import ai.neuronet.com.palavasmartcity.callback.GetSysnonmsSuccessListener;
@@ -53,10 +56,11 @@ public class MainFragment extends Fragment implements IGetDataFromAsync, SwipeRe
     private ArrayList<Dialog> _dialogsList;
     private AVLoadingIndicatorView _avLoadingIndicatorView;
     private AutoCompleteTextView _editText;
-    private RelativeLayout bottomLayout;
+
     private ImageView _sendChat;
     private SwipeRevealLayout swipeRevealLayout;
-    private static String mainDialog;
+    private static String updateRequestNodeId="0";
+
 
     @Nullable
     @Override
@@ -85,7 +89,6 @@ public class MainFragment extends Fragment implements IGetDataFromAsync, SwipeRe
         _avLoadingIndicatorView = view.findViewById(R.id.avi);
         swipeRevealLayout = view.findViewById(R.id.swipeRevealLyout);
         swipeRevealLayout.setSwipeListener(this);
-        bottomLayout = view.findViewById(R.id.bottomLayout);
         _editText = view.findViewById(R.id.editText);
         _editText.setThreshold(2);
         swipeRevealLayout.open(true);
@@ -117,7 +120,7 @@ public class MainFragment extends Fragment implements IGetDataFromAsync, SwipeRe
 
         _avLoadingIndicatorView.setVisibility(View.GONE);
         _recyclerView.setVisibility(View.VISIBLE);
-        if(customNBitClass.getDialogs()==null)
+        if(customNBitClass==null || customNBitClass.getDialogs()==null)
         {
             return;
         }
@@ -129,10 +132,6 @@ public class MainFragment extends Fragment implements IGetDataFromAsync, SwipeRe
 
         if(dialogArrayList.size() >2 && dialogArrayList.get(2).displaytype.equalsIgnoreCase("FORM")) {
             org.jsoup.nodes.Document doc = Jsoup.parse(dialogArrayList.get(2).dialog);
-
-
-            Dialog dialog = new Dialog();
-            mainDialog = dialogArrayList.get(2).dialog;
 
             Elements keyElements = doc.select("label");
 
@@ -203,12 +202,15 @@ public class MainFragment extends Fragment implements IGetDataFromAsync, SwipeRe
     @Override
     public void onClosed(SwipeRevealLayout view) {
         android.util.Log.e("Close","2222");
+        if(_editText!=null)
+            _editText.setText("");
     }
 
     @Override
     public void onOpened(SwipeRevealLayout view) {
 
         android.util.Log.e("Open","1111");
+
 
     }
 
@@ -225,6 +227,8 @@ public class MainFragment extends Fragment implements IGetDataFromAsync, SwipeRe
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         _editText.setDropDownVerticalOffset(10);
         _editText.setAdapter(arrayAdapter);
+
+        SharePreferenceManager.getInstance().setSysnonsStrings(getActivity(),strings);
     }
 
     private void hideSoftInputPanel() {
@@ -259,6 +263,7 @@ public class MainFragment extends Fragment implements IGetDataFromAsync, SwipeRe
             nbit = nbit.GetNbit(_dataCallAsync.getJsonresponse());
             callWebService(dialog.getNodeid(), _editText.getText().toString(), _dataCallAsync.getJsonresponse(), nbit.getSessionid(), nbit.getUser(), nbit.getContext(), nbit.getLanguage(), getString(R.string.app_name_type));
             swipeRevealLayout.close(true);
+            updateRequestNodeId= dialog.getNodeid();
         }
     }
 
@@ -266,22 +271,66 @@ public class MainFragment extends Fragment implements IGetDataFromAsync, SwipeRe
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
+        if(getActivity()==null || getView()==null)
+        {
+            return;
+        }
+
         for (Fragment fragment:getActivity().getSupportFragmentManager().getFragments()) {
             getActivity().getSupportFragmentManager().beginTransaction().remove(fragment).commit();
         }
-        if(getActivity()!=null)
+
+        if(getActivity()!=null && SharePreferenceManager.getInstance().isLogin(getContext()))
         getActivity().finish();
     }
 
     @Override
     public void update(String query) {
 
-        if (_dataCallAsync.getJsonresponse() != null) {
-            Dialog dialog = _dialogsList.get(_dialogsList.size() - 1);
-            Nbit nbit = new Nbit();
-            nbit = nbit.GetNbit(_dataCallAsync.getJsonresponse());
-            callWebService(dialog.getNodeid(), query, _dataCallAsync.getJsonresponse(), nbit.getSessionid(), nbit.getUser(), nbit.getContext(), nbit.getLanguage(), getString(R.string.app_name_type));
-            swipeRevealLayout.close(true);
+        if(query.equalsIgnoreCase("logout"))
+        {
+           SharePreferenceManager.getInstance().logOut(getActivity());
+            if (!getActivity().isFinishing()) {
+                OtpFragment otpFragment = new OtpFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+
+
+                for(int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
+                    fragmentManager.popBackStack();
+                }
+
+                for(int i = 0; i < getActivity().getSupportFragmentManager().getBackStackEntryCount(); ++i) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                }
+
+                if (fragmentManager != null) {
+                    if (getActivity() == null || getActivity().isFinishing()) {
+                        return;
+                    }
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                    transaction.replace(R.id.contentPanel, otpFragment, otpFragment.getClass().getCanonicalName()).addToBackStack(otpFragment.getClass().getCanonicalName()).commitAllowingStateLoss();
+                }
+            }
+        }
+
+        else if(query.equalsIgnoreCase("want to log new ticket"))
+        {
+            callWebService("0", "hello", null, "0", SharePreferenceManager.getInstance().getMobile(getContext()), null, "en-US",
+                    getString(R.string.app_name_type));
+
+            swipeRevealLayout.open(true);
+            _editText.requestFocus();
+
+        }
+        else {
+            if (_dataCallAsync.getJsonresponse() != null) {
+                Dialog dialog = _dialogsList.get(_dialogsList.size() - 1);
+                Nbit nbit = new Nbit();
+                nbit = nbit.GetNbit(_dataCallAsync.getJsonresponse());
+                callWebService(updateRequestNodeId, query, _dataCallAsync.getJsonresponse(), nbit.getSessionid(), nbit.getUser(), nbit.getContext(), nbit.getLanguage(), getString(R.string.app_name_type));
+                swipeRevealLayout.close(true);
+            }
         }
     }
 

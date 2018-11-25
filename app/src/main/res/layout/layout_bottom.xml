@@ -47,24 +47,27 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/dimen_05"
                     android:focusable="true"
+                    android:orientation="horizontal"
                     android:background="@drawable/right_background"
                     android:focusableInTouchMode="true">
 
 
                         <AutoCompleteTextView
                             android:id="@+id/editText"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="start|center"
                             android:background="@android:color/transparent"
                             android:focusable="true"
                             android:maxLines="1"
+                            android:singleLine="true"
+                            android:layout_weight="0.9"
                             android:focusableInTouchMode="true"
                             android:gravity="start|center"
                             android:hint="@string/searchHint"
@@ -76,16 +79,17 @@
 
                     <ImageView
                         android:id="@+id/sendChat"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:layout_centerInParent="true"
                         android:layout_marginStart="@dimen/margin_5"
                         android:paddingEnd="@dimen/dimen_02"
+                        android:layout_weight="0.1"
                         android:contentDescription="@string/app_name"
                         android:scaleType="fitXY"
                         android:src="@drawable/ic_send" />
-                </RelativeLayout>
+                </LinearLayout>
             </FrameLayout>
 
             <!-- Your main layout here -->

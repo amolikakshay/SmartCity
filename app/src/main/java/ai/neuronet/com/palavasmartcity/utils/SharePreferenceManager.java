@@ -3,6 +3,10 @@ package ai.neuronet.com.palavasmartcity.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import ai.neuronet.com.palavasmartcity.R;
 
 public class SharePreferenceManager {
@@ -47,5 +51,28 @@ public class SharePreferenceManager {
     {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(context.getString(R.string.isLogeIn), false);
+    }
+
+    public void logOut(Context context)
+    {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
+
+    public void setSysnonsStrings(Context context, ArrayList<String> strings) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Set<String> stringSet = new HashSet<String>(strings);
+        editor.putStringSet(context.getString(R.string.synonms), stringSet);
+        editor.apply();
+    }
+
+    public Set<String> getSysnonsStrings(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getStringSet(context.getString(R.string.synonms),null);
     }
 }
