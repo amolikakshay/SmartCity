@@ -50,8 +50,9 @@ public class DataCallAsync extends AsyncTask<Void, Void, ClientDialogs> {
 
                 HandleChat chat = new HandleChat();
                 jsonresponse = chat.setDialogs(nodeId, dialog, nbitjson, session, user, context, lang, app);
-                clientDialogs = chat.getDialogs(jsonresponse);
                 iGetDataFromAsync.OnDataDoInBackground();
+                if(jsonresponse!=null)
+                clientDialogs = chat.getDialogs(jsonresponse);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -9,25 +9,34 @@ import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.gson.JsonObject;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+
 import ai.neuronet.com.palavasmartcity.PojoClasses.CardType;
 import ai.neuronet.com.palavasmartcity.R;
 import ai.neuronet.com.palavasmartcity.callback.UpdateListener;
 import ai.neuronet.com.palavasmartcity.font.NeuroNetTextView;
+import ai.neuronet.com.palavasmartcity.utils.SharePreferenceManager;
 import ai.neuronet.com.palavasmartcity.views.CustomAutoCompleteTextvIew;
 
 
 public class TextDropdownCardViewHolder extends RecyclerView.ViewHolder {
 
      private NeuroNetTextView complaintTextView;
-     private CustomAutoCompleteTextvIew customAutoCompleteTextView_WithButton;
+     private AutoCompleteTextView customAutoCompleteTextView_WithButton;
      private Button customAutoCompleteTextview_Button;
      private ConstraintLayout reportType,location,subArea;
      private TextView textView_with_spinner;
@@ -47,6 +56,14 @@ public class TextDropdownCardViewHolder extends RecyclerView.ViewHolder {
         complaintTextView=itemView.findViewById(R.id.textView_CustomAutoCompleteTextvIew);
 
         customAutoCompleteTextView_WithButton = itemView.findViewById(R.id.customAutoCompleteTextView_WithButton);
+
+        List<String> strings = new ArrayList<String>();
+        strings.addAll( SharePreferenceManager.getInstance().getSysnonsStrings(itemView.getContext()));
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(itemView.getContext(), android.R.layout.simple_spinner_dropdown_item,strings);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        customAutoCompleteTextView_WithButton.setDropDownVerticalOffset(10);
+        //customAutoCompleteTextView_WithButton.setAdapter(arrayAdapter);
+
         customAutoCompleteTextView_WithButton.setInputType(InputType.TYPE_CLASS_TEXT);
         customAutoCompleteTextview_Button  =  itemView.findViewById(R.id.customAutoCompleteTextview_Button);
 
@@ -142,8 +159,11 @@ public class TextDropdownCardViewHolder extends RecyclerView.ViewHolder {
 
 
             menu.put(keyArr[4],spinner.getSelectedItem());
-            jObject.put("dialog",menu);
-            dialog.dialog = jObject.toString();
+
+            JSONObject dialogJsonObject = new JSONObject();
+
+
+            dialog.dialog = menu.toString();
             loginToSmartHubButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
